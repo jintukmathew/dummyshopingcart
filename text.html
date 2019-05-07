@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+var product = [
+    {code:'ipd',	name:'Super iPad',	price:549.99},
+    {code:'mbp',	name:'MacBook Pro',	price:1399.99},
+    {code:'atv',	name:'Apple TV',	price:109.50},
+    {code:'vga',	name:'VGA adapter',	price:30.00}
+]
+var discount = [
+{code:'ipd',	discountCount:1,	discount:-50},
+{code:'mbp',	discountCount:1,	discount:-30},
+{code:'atv',	discountCount:3,	discount:-109.50}
+]
+var shop = function(){
+    this.items=[];
+    this.totalPrice=0;
+    this.scan = function(codeval) {
+        let pos = this.items.map(function(e) { return e.code; }).indexOf(codeval);
+        if(pos>-1){
+            this.items[pos].count += 1;
+        }
+        else{
+            let pos = product.map(function(e) { return e.code; }).indexOf(codeval);
+            this.items.push({code:codeval,count:1,unitPrice:product[pos].price});
+        }
+    }
+    this.total = function(){
+        for(let i=0;i<this.items.length;i++){
+            let pos = discount.map(function(e) { return e.code; }).indexOf(this.items[i].code);
+            if(pos>-1){
+                this.totalPrice = this.getdiscountVal(this.items[i].count, this.items[i].unitPrice, discount[pos].discountCount, discount[pos].discount);
+                console.log(this.totalPrice);
+            }
+            else{
+
+            }
+        }
+    }
+    this.getdiscountVal = function(count, unitPrice, dicountCount, discoutPrice){
+        var total=0;
+        let currentCount;
+        if(count>=dicountCount){
+            currentCount = count-dicountCount;
+            total += unitPrice*dicountCount+discoutPrice;
+            total += this.getdiscountVal(currentCount, unitPrice, dicountCount, discoutPrice);
+        }
+        else{
+            total += unitPrice*count;
+        }
+        return total;
+
+
+    }
+
+    }
+//..........................................................................................................................
+//  open page in browser
+//  open console
+//  MyCart = new shop();
+//  MyCart.scan('atv');
+//  MyCart.scan('atv');
+//  MyCart.total();
+</script>
+
+</body>
+</html>
