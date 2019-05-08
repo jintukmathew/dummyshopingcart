@@ -3,6 +3,8 @@
 <body>
 
 <script>
+    
+//..........................................................................................................................
 var product = [
     {code:'ipd',	name:'Super iPad',	price:549.99},
     {code:'mbp',	name:'MacBook Pro',	price:1399.99},
@@ -10,7 +12,7 @@ var product = [
     {code:'vga',	name:'VGA adapter',	price:30.00}
 ]
 var discount = [
-{code:'ipd',	discountCount:1,	discount:-50},
+{code:'ipd',	discountCount:4,	discount:-200},
 {code:'mbp',	discountCount:1,	discount:-30},
 {code:'atv',	discountCount:3,	discount:-109.50}
 ]
@@ -32,12 +34,12 @@ var shop = function(){
             let pos = discount.map(function(e) { return e.code; }).indexOf(this.items[i].code);
             if(pos>-1){
                 this.totalPrice = this.getdiscountVal(this.items[i].count, this.items[i].unitPrice, discount[pos].discountCount, discount[pos].discount);
-                console.log(this.totalPrice);
             }
             else{
-
+                this.totalPrice += this.items[i].count*this.items[i].unitPrice;
             }
         }
+        console.log(this.totalPrice);
     }
     this.getdiscountVal = function(count, unitPrice, dicountCount, discoutPrice){
         var total=0;
@@ -55,14 +57,61 @@ var shop = function(){
 
     }
 
-    }
-//..........................................................................................................................
 //  open page in browser
 //  open console
 //  MyCart = new shop();
 //  MyCart.scan('atv');
 //  MyCart.scan('atv');
 //  MyCart.total();
+    
+//............................................................................................................................
+// make piramid question
+
+
+
+function makeShape(r){
+        for(var i=0;i<r;i++){
+        var out="";
+            for(var j=0;j<=r;j++){
+                if(j<r-i){
+                    out+=" ";
+                } else{
+                    out+="* ";
+                }
+            }
+        console.log(out);
+        }
+    }
+
+    }
+// makeShape(10);
+
+//..................................................................................................................................................
+//pairable array question 
+
+function check(a,k){
+    if(a.length%2>0){
+        throw "array is not pairable"
+    }
+    for(i=0;i<=a.length;i++){
+        for(j=i+1;j<=a.length;j++){
+            if((a[i]+a[j])%k==0){
+                a.splice (j, 1);
+                a.splice (i, 1);
+                j--;
+            }
+        }
+    }
+    if(a.length==0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+// check([1,5,4,2],6)
+
 </script>
 
 </body>
